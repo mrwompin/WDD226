@@ -1,37 +1,22 @@
 <?php 
-	$currentBalance = 55.75;	
-	$trnsLog = array(
+	$trans = new Transaction;
+	$trans->available = 55.75;
+	$trans->HtmlStart();
+	$balance = $trans->LogEntry(55.75);
+	$trans->HtmlEnd($balance);
+
+	class Transaction {
+		public $available;
+		static  $log = array(
 		array("Purchase: Clothing", -40),
 		array("ATM Deposit", 20),
 		array("Check Number: 12345", -17.88),
-		array("Purchase: Gas", -.55),
-		array("ATM Deposit", 35)
+		array("Purchase: Gas", -.55)
 	);
 
-	function makeTrans($desc, $amnt, $crnt) {
-	//Function creates transaction logs to add to table
-		$trnsDesc = $desc;
-		$trnsAmnt = $amnt;
-		$trnsCrnt = $crnt; 
-		$trnsRslt = $crnt + $amnt;
-
-		foreach ($trnsLog as $log) {
-			echo <<<ENTRY
-<tr class="transactions">
-	<td class="description">$trnsDesc</td>
-	<td class="charge">$trnsAmnt</td>
-</tr>
-<tr class="balance">		
-	<td colspan="2">$trnsRslt</td>
-</tr>
-ENTRY;
-			$trnsCrnt = $trnsRslt; 
-		}
-	}
-
-
-echo <<<MYHTML
-<!DOCTYPE html>
+		public function HtmlStart() {
+			echo <<<EOT
+			<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
@@ -79,15 +64,61 @@ echo <<<MYHTML
 		</style>
 	</head>
 	<body>
-	<h1>String and Number Manipulation</h1>
-	<h2>String Manipulation</h2>
-	<h2>Number Manipulation</h2>
-	<table>
-		<th>Joe's Account</th>
-		{makeTrans}
-	</table>
+		
+EOT;
+		}
 
+	Public function HtmlEnd($x) {
+		echo <<<EOT
 	</body>
 </html>
-MYHTML;
+EOT;
+	}
+
+	public function LogEntry($x) {
+		/*LOG ENTRY TABLE
+			This function is designed to create a table with dynamically
+			added rows called entries. It acomplishes this by receiving as 
+			an argument the starting value of the account.
+			from there it iterates through the array calle $log that contains
+			all the transactions and creates an entry for them.
+		*/
+		echo <<<EOT
+<h2>Number Manipulation</h2>
+		<table>
+			<th>Joe's Account</th>
+EOT;
+		
+		foreach(self::$log as $entry) {
+			$desc = $entry[0];
+			$trans = $entry[1];
+			$x += $trans;
+			$trans = $this->FormatCurrency($trans);
+
+			echo <<<EOT
+<tr class="transactions">
+	<td class="description">$desc</td>
+	<td class="charge">$trans</td>
+</tr>
+<tr class="balance">		
+	<td colspan="2">$x</td>
+</tr>
+
+EOT;
+		}
+		echo <<<EOT
+<tr id="available">
+					<td class="label">Available Balance:</td>
+				<td>$x</td>
+			</tr>
+		</table>
+EOT;
+		return $x ;
+	}
+
+	public function FormatCurrency($x){
+		return sprintf("$%.2f", $x);
+	}
+}
+	
 ?>
