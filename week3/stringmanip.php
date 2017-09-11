@@ -1,6 +1,18 @@
 <?php 
-	$myString = "\t <p>My children were pretending they work at the bank. My daughter said, \"Pay up Mr. O'Doyle, or we will take all of your stuff, even your Mom's shoes.\" My son said \"How much money do I owe you?\" to which my daughter replied \"$1,000,000.52. I have told you many times that interest was building up. You always said 'I know, but I have to pay for my Mom's shoes first.' but now you must pay me or face the consequences.\"</p> 
-		\n\t<p>My son replied \"Sigh...women are always taking my money.\"</p>";
+	// The following code uses a an echo with a heredoc to display the html code in browser.
+	$myString <<<MYOUT
+		<p>
+			My children were pretending they work at the bank. My daughter said, Pay
+			up Mr. O'Doyle, or we will take all of your stuff, even your Mom's shoes.
+			my son said How much money do I owe you? to which my daughter replied
+			$1,000,000.52. I have told you many times that interest was building up. You
+			always said 'I know, but I have to pay for my Mom's shoes first.' but now
+			you must pay me or face the consequences.
+		</p> 
+		<p>
+			My son replied Sigh...women are always taking my money.
+		</p>
+MYOUT;
 
-	echo $myString;
+echo $myString;
 ?>
