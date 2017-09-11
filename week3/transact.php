@@ -1,9 +1,8 @@
 <?php 
 
 class TransactionTable {
-	
 	static $crntAmnt;
- const CSS = <<<STYLESHEET
+	const CSS = <<<STYLESHEET
 			table {
 				width: 600px;
 			}
@@ -44,9 +43,39 @@ class TransactionTable {
 				text-align: left;
 			}
 STYLESHEET;
+	
+	const tableHead = <<<TABLEHEAD
+	<table>
+		<tr id="t_header">
+			<th colspan="2">Lemon's Account Balance</th>
+		</tr>
+TABLEHEAD;
+	const tableFOOT = <<<EOT
+		<tr id="available">
+		<td class="label">Available Balance:</td>
+		<td>$currentBalance</td>
+	</tr>
+	</table>
+EOT;
+
 
 	public function makeTrans($desc, $trns, $crnt) {
-		//Function 
+		//Function creates a table and populates it using dynamically created rows.
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
 		$trnsDesc = $desc;
 		$trnsAmnt = $this->frmtCurrency($trns);
 		$trnsAdded =  $crnt + $trns;
