@@ -1,6 +1,6 @@
 <?php 
 
-class Trans {
+class TransactionTable {
 	
 	static $crntAmnt;
  const CSS = <<<STYLESHEET
@@ -46,6 +46,7 @@ class Trans {
 STYLESHEET;
 
 	public function makeTrans($desc, $trns, $crnt) {
+		//Function 
 		$trnsDesc = $desc;
 		$trnsAmnt = $this->frmtCurrency($trns);
 		$trnsAdded =  $crnt + $trns;
@@ -61,11 +62,10 @@ STYLESHEET;
 		</tr>
 EOT;
 		return self::$crntAmnt;
-
 	}	
 
-public function frmtCurrency($x) {
-	return sprintf("$%.2f", $x);
+	public function frmtCurrency($x) {
+		return sprintf("$%.2f", $x);
 }
 
 }

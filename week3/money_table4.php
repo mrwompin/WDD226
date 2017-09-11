@@ -1,7 +1,7 @@
 <?php 
 	//PHP CODE SETS UP THE TABLE
 	include 'transact.php';
-	$transaction = new Trans;
+	$transaction = new TransactionTable;
 	$CSS = $transaction::CSS;
 	$currentBalance = 55.75;
 		
