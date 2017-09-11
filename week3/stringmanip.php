@@ -1,6 +1,6 @@
 <?php 
 	// The following code uses a an echo with a heredoc to display the html code in browser.
-	echo <<<MYOUT
+	$myString <<<MYOUT
 		<p>
 			My children were pretending they work at the bank. My daughter said, Pay
 			up Mr. O'Doyle, or we will take all of your stuff, even your Mom's shoes.
@@ -13,4 +13,6 @@
 			My son replied Sigh...women are always taking my money.
 		</p>
 MYOUT;
+
+echo $myString;
 ?>
