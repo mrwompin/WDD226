@@ -11,6 +11,6 @@
 		<p>
 			My son replied Sigh...women are always taking my money.
 		</p>";
-MYOUTPUT
+MYOUTPUT;
 	echo $myString;
 ?>
