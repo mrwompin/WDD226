@@ -2,7 +2,7 @@
 /*Valerie Shipbaugh
 Syntax Errors Lab
 2007*/
-$studentName="Student";
+$studentName="Students";
 echo <<<MYHTML
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +38,7 @@ echo <<<MYHTML
  		<div id="border">
  			<h1>Dear $studentName,</h1>
 	 		
-	 		<p>I hope that you are having a great semester so far</p>
+	 		<p>I hope that you are having a great semester so far.</p>
 	<!--info for students-->
 	 		<p>PHP is a fun language to learn. Here is some information about PHP that I bet you didn't know:</p>
 	 		<p>PHP was written as a set of CGI binaries in the C programming language by the Danish/Greenlandic

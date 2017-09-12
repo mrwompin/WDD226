@@ -3,15 +3,7 @@
 	include 'transact.php';
 	$transaction = new TransactionTable;
 	$CSS = $transaction::CSS;
-	$currentBalance = 55.75;
-		
-	$transLog = array(
-		array("Purchase: Clothing", -40),
-		array("ATM Deposit", 20),
-		array("Check Number: 12345", -17.88),
-		array("Purchase: Gas", -.55),
-		array("ATM Deposit", 35)
-	);
+	
 
 	echo <<<EOT
 	<!DOCTYPE html>
@@ -46,7 +38,7 @@ EOT;
 	$currentBalance = $transaction->frmtCurrency($currentBalance);
 		echo <<<TABLE_END
 		<tr id="available">
-		<td class="label">Available Balance:</td>
+			<td class="label">Available Balance:</td>
 		<td>$currentBalance</td>
 	</tr>
 	</table>

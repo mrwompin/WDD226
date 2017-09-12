@@ -1,9 +1,7 @@
 <?php 
-
 class TransactionTable {
-	
 	static $crntAmnt;
- const CSS = <<<STYLESHEET
+	const CSS = <<<STYLESHEET
 			table {
 				width: 600px;
 			}
@@ -45,8 +43,11 @@ class TransactionTable {
 			}
 STYLESHEET;
 
+EOT;
+
+
 	public function makeTrans($desc, $trns, $crnt) {
-		//Function 
+		//Function creates a table and populates it using dynamically created rows.
 		$trnsDesc = $desc;
 		$trnsAmnt = $this->frmtCurrency($trns);
 		$trnsAdded =  $crnt + $trns;

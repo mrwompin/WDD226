@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Form Review</title>
+	
+	<style>
+		html{
+			padding: 0;
+			margin: 0;
+		}
+		body{
+			background-color: rgb(242,242,242);
+		}
+		.inputform{
+			width: 700px;
+			margin-right: auto;
+			margin-left: auto;
+			background-color: rgb(250,253,253);
+			box-shadow: 10px 10px 10px #595959;
+			border-radius: 20px;
+			padding-bottom: 10px;
+		}
+		
+		
+		
+		.inputform h2{
+			background-color: orange;
+			padding: 15px;
+			border-radius: 20px 20px 0 0;						
+		}
+		
+		.inputform input{
+			width: 680px;
+			border: 0;
+			box-shadow: none ;
+			
+			
+		}
+		
+		.inputform p{
+			margin-left: 1.5%;
+			margin-right: 1.5%;
+			padding: 0;
+			
+		}
+		
+		.inputform label{
+			margin-left: 1.7%;
+			display: inline-block;
+			width: 680px;
+			border-top: black solid 1px;
+			
+		}
+		
+		.inputform form{
+			padding-top: 3px;
+		}
+		
+		.entry{
+			
+		}
+		
+		
+		
+		.dotted{
+			border-top: dotted 2px black;
+			width: 600px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: 10px;
+			margin-top: 10px;
+		}
+		
+		.inlinedisplay{
+			display: inline;
+		}
+		
+		.formsection{
+			width: 100%;
+			margin-bottom: 3px;
+			padding-bottom: 15px;
+			
+			
+			
+		}
+		
+		.formsection label{ 
+			border: none;
+		}
+		
+		.formsection input{
+			width: 50px;
+		}
+		
+		.formsection select{
+			margin-left: 20px;
+			margin-top: 2px;
+		}
+		
+		.comments {
+			margin-left: 20px;
+			margin-top: 2px;
+		}
+		
+		input[type=submit] {
+			display: block;
+			margin: 0px auto;
+			margin-top: 20px;
+			width: 140px;
+			
+		}
+
+		
+	</style>
+
+</head>
+
+<body>
+	<div class="inputform">
+		<h2>Input Form</h2>
+	
+	
+		<form action="#">
+			<div class="entry">
+				<p>
+					<input class="inputform" type="text" name="lastname" autofocus maxlength="50" >
+				</p>
+				<label>First Name</label>
+			</div>
+			
+			<div class="entry">
+			<p>
+				<input class="inputform" type="text" name="lastname" maxlength="50">
+			</p>
+			<label>Last Name</label>
+			</div>
+			
+			<div class="entry">
+			<p>
+				<input class="inputform" type="text" name="address">
+			</p>
+			<label>Street Address</label>	
+			</div>
+			
+			<div class="entry">
+			<p>
+				<input class="inputform" type="text" name="City" maxlength="50">
+			</p>
+			<label>City</label>	
+			</div>
+			
+			<div class="entry">
+			<p>
+				<input class="inputform" type="text" name="zipcode" maxlength="50">
+			</p>
+			<label>Zip Code</label>	
+			</div>
+			
+			<div class="entry">
+			<p>
+				<input class="inputform" type="email" name="email" maxlength="50">
+			</p>
+			<label>Email</label>	
+			</div>
+			
+			<div class="dotted"></div>
+		
+			<div class="displayinline">			
+			<div class="formsection">
+				
+				<label>Enrollment Status</label>
+				
+				<input class="inputform" type="radio" name="status" value="fulltime" checked="checked">Full Time<br>
+				
+				<input class="inputform" type="radio" name="status" value="parttime">Part Time
+			</div>
+			
+			<div class="formsection">
+				<label>Anticipated Graduation Date</label>
+				
+				<select>
+					<option value="jan17">January 2017</option>
+					<option value="may17">Fall 2017</option>
+					<option value="jan18">Fall 2018</option>
+					<option value="may18">Fall 2018</option>
+				</select>
+			</div>
+			<div class="comments">
+				Comments:<br>	
+				<textarea rows="5" cols="50" name="Comments"></textarea><br>
+			</div>
+			</div>
+
+			<div class="submit">
+				<input type="submit" name="submit">
+			</div>	
+		</form>
+	</div>
+
+</body>
+</html>
