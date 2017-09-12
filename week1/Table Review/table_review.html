@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Table Review</title>
+
+	<style type="text/css">
+	/* NOTES:
+		Background Color: #dde8ff
+
+
+
+	*/
+
+
+	/*PRESETS*/	
+		html {
+			margin: 0px;
+			padding: 0px;
+			border: 0px;
+		}
+
+	/*BODY*/
+		body {
+			font-size: 12pt;
+			background-color: #dde8ff;
+		}
+		
+	/*TABLE*/
+		table {
+			width: 600px;
+			margin-left: auto;
+			margin-right: auto;
+			padding: 8px;
+			border: 1.5px solid black;
+			background-color: white;
+		}
+
+	/*HEADER*/
+		#header {
+
+
+		}
+
+	/*CONTENT*/
+		#content {
+			display: inherit;
+			width: 100%;
+			clear: both;
+			
+		}
+
+	/*LINKS*/
+		#links {
+			float: left;
+			margin-left: 2.5px;
+			margin-top: 10px;
+			margin-right: 25px;
+			width: 170px;
+		}
+
+		#links nav {
+			list-style-type: none;
+			margin:0;
+			padding: 0;
+			font-size: .8em;
+
+		}
+
+		#links nav a {
+			display: inline-block;
+			margin-bottom: 6px;
+		}
+	/*PARAGRAPHS*/
+		#paragraphs {
+			width: 430px;
+			margin-top: 20px;	
+		}
+
+		#paragraphs p {
+			margin: 0;
+		}
+		
+		#paragraphs p.source {
+			float: right;
+			margin-bottom: 5px;
+			font-size: .75em;
+		}
+	
+	</style>
+</head>
+
+<!--Formatting Table
+this table is being used to format two rows, the first row contains the header image 'header'. The second row contains two columns, the first column contains links to php tutorials. The second column contains two paragraphs giving a history and explanation of php. The table is formatted using the css above.
+
+image: ../images/header
+-->
+<body>
+<table>
+	<tr id="header"><th><img src="header.png" alt="header"></th></tr>
+	<tr id="content">
+		<td id="links"> 
+			<nav>
+				<a href="http://php.net/manual/en/">PHP Official Documentation</a>
+				<a href="http://php.net/manual/en/tutorial.php">PHP Documenation Tutorial</a>
+				<a href="https://www.w3schools.com/php/">W3 Schools PHP Tutorial</a>
+				<a href="https://www.tutorialspoint.com/php/">Tutorials Point PHP Tutorial</a>
+				<a href="http://www.php5-tutorial.com/">PHP5-Tutorial</a>
+			</nav>
+		</td>
+		
+		<td id="paragraphs">
+			
+				<p class="main">Originally developed by Ramus Lerdor, PHP got it's start as set of scripting tools written in C known at the time as Personal Home Page Tools. These tools allowed user to create simple dynamic web applications such as guest books. PHP gradually began to be developed when the source code was released but it wasn't until 98 that PHP included object oriented programming support. As of today PHP, with it's related supporting projects such as PEAR, PECL, and documentation, is by some estimates installed on tens to hundreds of millions of domains around the world.</p>
+				<p class="source"><a href="http://php.net/manual/en/history.php.php">PHP Manual: History</a></p>
+				<br>
+				
+				<p>PHP is an open source general-purpose scripting language. Maininly used for web development, as it can be embedded into HTML, PHP code executes server side and sends the client the end result of what is being requested. </p>
+				<p class="source"><a href="http://php.net/manual/en/intro-whatis.php">PHP Manual: Intro</a></p>
+			
+			
+			<p></p>
+		</td>
+	</tr>
+</table>
+	
+</body>
+</html>
