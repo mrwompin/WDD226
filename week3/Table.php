@@ -5,16 +5,18 @@
 	 * - Comment functions
 	 * - Learn Get/Set
 	 * - DocBLock explaining script
+	 * - Reformat output HTML to use returned strings from functions for better readability
 	*/
 
 	$trans = new Transaction;
+	$strtBal = 55.75;
 	$log = array(
 		array("Purchase: Clothing", -40),
 		array("ATM Deposit", 20),
 		array("Check Number: 12345", -17.88),
 		array("Purchase: Gas", -.55)
 		);
-	$trans->MakeTable(55.75,$log);
+	$trans->MakeTable($strtBal,$log);
 	
 /**
 	 * Class Transaction is used for creating a Transaction Log Table
@@ -35,6 +37,20 @@
 		}
 
 		private function HtmlStart() {
+			$myString = <<<EOT
+<h2>String Manipulation</h2>
+				<p class="blurb">
+					My children were pretending they work at the bank. My daughter said, Pay
+					up Mr. O'Doyle, or we will take all of your stuff, even your Mom's shoes.
+					my son said How much money do I owe you? to which my daughter replied
+					$1,000,000.52. I have told you many times that interest was building up. You
+					always said 'I know, but I have to pay for my Mom's shoes first.' but now
+					you must pay me or face the consequences.
+				</p> 
+				<p class=blurb>
+					My son replied Sigh...women are always taking my money.
+				</p>
+EOT;
 			echo <<<EOT
 <!DOCTYPE html>
 <html lang="en">
@@ -147,22 +163,10 @@
 	</head>
 	<body>
 		<div id="wrapper">
-			<div class="stringmanip">
-			<h2>String Manipulation</h2>
-				<p class="blurb">
-					My children were pretending they work at the bank. My daughter said, Pay
-					up Mr. O'Doyle, or we will take all of your stuff, even your Mom's shoes.
-					my son said How much money do I owe you? to which my daughter replied
-					$1,000,000.52. I have told you many times that interest was building up. You
-					always said 'I know, but I have to pay for my Mom's shoes first.' but now
-					you must pay me or face the consequences.
-				</p> 
-				<p class=blurb>
-					My son replied Sigh...women are always taking my money.
-				</p>
-			</div>
+			
 		
 EOT;
+	echo $myString;
 		}
 
 	private function HtmlEnd() {
@@ -175,12 +179,13 @@ EOT;
 		
 	private function LogEntry($bal,$log) {
 		echo <<<EOT
+
 <h2>Number Manipulation</h2>
 		<table>
 			<tr><th colspan="2">Joe's Account</th></tr>
 EOT;
 		
-		foreach($log as $entry) {
+		foreach($log as $entry) { 
 			$desc = $entry[0];
 			$trans = $entry[1];
 			$bal += $trans;
@@ -197,6 +202,7 @@ EOT;
 
 EOT;
 		}
+
 		echo <<<EOT
 <tr id="available">
 					<td class="label">Available Balance:</td>
@@ -210,6 +216,5 @@ EOT;
 	public function FormatCurrency($x){
 		return sprintf("$%.2f", $x);
 	}
-}
-	
+}	
 ?>
