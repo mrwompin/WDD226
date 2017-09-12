@@ -6,6 +6,7 @@
 	 * - Learn Get/Set
 	 * - DocBLock explaining script
 	 * - Reformat output HTML to use returned strings from functions for better readability
+	 * - Comment added test
 	*/
 
 	$trans = new Transaction;
