@@ -75,13 +75,17 @@ EOT;
 EOT;
 	}
 
+	public function berbertb(){
+echo "cat man";
+	}
+
 	public function LogEntry($x) {
-		/*LOG ENTRY TABLE
-			This function is designed to create a table with dynamically
-			added rows called entries. It acomplishes this by receiving as 
-			an argument the starting value of the account.
-			from there it iterates through the array calle $log that contains
-			all the transactions and creates an entry for them.
+		/** Creates a table for Log Entries
+
+		*	This function is designed to create a table with dynamically added rows called entries. 
+		*	It acomplishes this by receiving as an argument the starting value of the account.
+		*	from there it iterates through the array calle $log that contains all the transactions and creates an entry for them.
+
 		*/
 		echo <<<EOT
 <h2>Number Manipulation</h2>
