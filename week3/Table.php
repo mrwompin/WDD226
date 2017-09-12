@@ -177,7 +177,7 @@ EOT;
 		echo <<<EOT
 <h2>Number Manipulation</h2>
 		<table>
-			<th colspan="2">Joe's Account</th>
+			<tr><th colspan="2">Joe's Account</th></tr>
 EOT;
 		
 		foreach($log as $entry) {
