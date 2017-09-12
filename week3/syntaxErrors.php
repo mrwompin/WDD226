@@ -2,7 +2,7 @@
 /*Valerie Shipbaugh
 Syntax Errors Lab
 2007*/
-$studentName="Student";
+$studentName="Students";
 echo <<<MYHTML
 <!DOCTYPE html>
 <html lang="en">
