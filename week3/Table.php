@@ -1,35 +1,42 @@
 <?php 
+	/**
+	 * TO DO:
+	 * - Make String Manip its own class
+	 * - Comment functions
+	 * - Learn Get/Set
+	 * - DocBLock explaining script
+	*/
+
 	$trans = new Transaction;
-	$trans->log = array(
+	$log = array(
 		array("Purchase: Clothing", -40),
 		array("ATM Deposit", 20),
 		array("Check Number: 12345", -17.88),
 		array("Purchase: Gas", -.55)
 		);
-	$trans->MakeTable(55.75);
-	/**
-	 * Class Transaction is used for managing the Money Table
+	$trans->MakeTable(55.75,$log);
+	
+/**
+	 * Class Transaction is used for creating a Transaction Log Table
 	 * 
-	 * The class conatins 2 public variables $balance and $log
-	 * $balance holds the how much money is available as the the transactions are added
-	 * $log is an array that holds the Transaction log
-	 * In addition there are 2 public function and 3 private functions
+	 * The table is created using the public function MakeTable which requires two arguments, a starting balance ($strBal) and a multidimensional array that contains multiple transaction arrays, characterised as a description and cost. Transaction then plugs those into private variables which will have get/set functions added at a later release. Then through a series of private function calls and variable passing the html is printed with computed entries as well as a final available balance total.
 	 * 
-
-	*/	
+	*/
 	class Transaction 
 	{
-		public  $log = array();
-		
-		public function MakeTable($startAmount) {
+		private $availBal;
+		private $log; 
+
+		public function MakeTable($strBal,$log) {
+			$this->log = $log;
 			$this->HtmlStart();
-			$this->LogEntry($startAmount);
+			$this->availBal = $this->LogEntry($strBal,$log);
 			$this->HtmlEnd();
 		}
 
 		private function HtmlStart() {
 			echo <<<EOT
-			<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
@@ -45,6 +52,7 @@
 				max-width: 800px;
 				margin-left: auto;
 				margin-right: auto;
+				font-size: 12pt;
 			}
 
 			
@@ -82,17 +90,22 @@
 
 
 			table {
-				width: 60%;
-				max-width: 500px;
+				width: 70%;
+				max-width: 600px;
 				min-width: 305px;
 				margin-left: auto;
 				margin-right: auto;
+				border: dashed black 1pt;
+				padding: 1%;
+				padding-left: 5%;
 
 			}
 
-			#t_header {
-				font-weight: bold;
+			th {
+				font-weight: normal;
 				text-align: center;
+				font-size: 1.5em;
+
 			}
 
 			.transactions {
@@ -110,18 +123,23 @@
 				width: 40%;
 				text-align: right;
 			}
+	
 
 			tr.balance td{
 				text-align: right;
-				border-bottom: 1pt solid black;
+				border-bottom: .5pt dashed black;
 				
 			}
 			
 			#available {
 				text-align: right;
 				font-size: 1.5em;
-			}
 
+			}
+			
+			#available td {
+			padding-top: 2.5%;
+		}
 			#available .label {
 				text-align: left;
 			}
@@ -154,28 +172,18 @@ EOT;
 </html>
 EOT;
 	}
-
-	
-/**
- * Creates a table for Log Entries
- * 
- * This function is designed to create a table with dynamically added rows called entries. 
- * It acomplishes this by receiving the reference point for current balance.
- * from there it iterates through the array calle $log that contains all the transactions and creates an entry for them.
- * when the function finishes the value of balance will be the same as the ending balance in the function.
- * 
-*/		
-	private function LogEntry($balance) {
+		
+	private function LogEntry($bal,$log) {
 		echo <<<EOT
 <h2>Number Manipulation</h2>
 		<table>
-			<th>Joe's Account</th>
+			<th colspan="2">Joe's Account</th>
 EOT;
 		
-		foreach($this->log as $entry) {
+		foreach($log as $entry) {
 			$desc = $entry[0];
 			$trans = $entry[1];
-			$balance += $trans;
+			$bal += $trans;
 			$trans = $this->FormatCurrency($trans);
 
 			echo <<<EOT
@@ -184,7 +192,7 @@ EOT;
 	<td class="charge">$trans</td>
 </tr>
 <tr class="balance">		
-	<td colspan="2">$balance</td>
+	<td colspan="2">$bal</td>
 </tr>
 
 EOT;
@@ -192,10 +200,11 @@ EOT;
 		echo <<<EOT
 <tr id="available">
 					<td class="label">Available Balance:</td>
-				<td>$balance</td>
+				<td>$bal</td>
 			</tr>
 		</table>
 EOT;
+		return $bal;
 	}
 
 	public function FormatCurrency($x){
