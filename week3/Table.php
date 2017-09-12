@@ -1,8 +1,8 @@
 <?php 
 	$trans = new Transaction;
-	$trans->available = 55.75;
+	$available = $trans->available = 55.75;
 	$trans->HtmlStart();
-	$balance = $trans->LogEntry(55.75);
+	$balance = $trans->LogEntry($available);
 	$trans->HtmlEnd($balance);
 
 	class Transaction {
@@ -73,10 +73,6 @@ EOT;
 	</body>
 </html>
 EOT;
-	}
-
-	public function berbertb(){
-echo "cat man";
 	}
 
 	public function LogEntry($x) {
