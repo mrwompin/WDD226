@@ -5,7 +5,7 @@
  * 
  * The main function of Tools is to house the global
  * properties that tool extensions use. These are the 
- * properties that all html elements have available
+ * properties that all html elements have available.
  * 
  * @since 9/14/17
  * @author Matt Markwald <mmarkwald01@gmail.com>
@@ -32,17 +32,49 @@ class Tools
 }
 #*/
 
-class Table extends Tools
+/**
+ * Get and Set used to create and store values of a table in html
+ * 
+ * The table class uses a series of methods to create and populate 
+ * an Html table object. This is accomplished by first setting the 
+ * the thead, tbody, and tfoot properties. The Thead and Tfoot can
+ * be set by using the set_Thead() and set_Foot() methods which 
+ * take an arbitrary amount of args to create the header and footer
+ * for the table. The tBody property can be set using the set_Tbody
+ * method which can either take a full array of arrays, rows, or by
+ * providing an arbitrary amount of arrays. In all cases the amount
+ * items in the head, body->rows, and foot needs to be the same.
+ * 
+ * @author Matt Markwald <mmarkwald01@gmail.com>
+ * @since 9/14/17
+ * 
+*/
+
+class Table extends Tools 
 {
-// PROPERTIES
-# /*
 	private $sortable;
 	private $thead;
 	private $tbody;
 	private $tfoot;
+
+/**
+ * Tests whether function calls are working
+*/
+# /*TOGGLE
+	public function test() {
+		echo "test test test test test";
+	}
 #*/
-// SET METHODS
-# /*
+
+/**
+ * Set property methods
+ * 
+ * Following methods are used to set the properties of 
+ * the class.
+ * 
+ * @since 9/14/17
+*/
+# /* TOGGLE
 	public function set_Thead() {
 		$headerRow = func_get_args();
 		$this->thead = $this->addTh($headerRow);
@@ -57,8 +89,16 @@ class Table extends Tools
 		$this->thead = array(func_get_args());
 	}
 #*/
-// GET METHODS
-# /* TOGGLE
+
+/**
+ * Get property methods
+ * 
+ * Following methods are used to get the property
+ * values of the class
+ * 
+ * @since 9/14/17
+*/
+# /*TOGGLE
 	public function get_Thead() {
 		if (isset($this->thead)) {
 			return $this->thead;
@@ -68,15 +108,14 @@ class Table extends Tools
 		}
 	}
 #*/
-//FUNCTION: addTh()
-/**DOC
+
+/**
  * Construct <th> HTML tags
  * 
  * This function creates a <th> tag for each item
  * in the array it is passed. 
  * 
  * @since 9/14/17
- * @author Matt
  * @param array $headerData Row data 
  * @var string $htmlString holds the html for return 
  * @return string $htmlString Returns formatted html string with data nested in <th></th> 
@@ -92,15 +131,15 @@ class Table extends Tools
 		return $htmlString;
 	}
 #*/	 
-//FUNCTION: addTD()
-/**DOC
+
+/**
  * Construct <td> HTML tags
  * 
  * this function creates a <td> tag for each item
  * in the array it is passed
  * 
  * @since 9/14/17
- * @author Matt
+ * @author Matt Markwald <mmarkwald01@gmail.com>
  * @param array $headerData Row data 
  * @var string $htmlString holds the html for return 
  * @return string $htmlString Returns formatted html string with data nested in <th></th>
@@ -114,21 +153,21 @@ class Table extends Tools
 		}
 		$htmlString .= "</tr>\n";
 		return $htmlString;
-	}
-#*/	
-}
+	}	
+}#End Class Table
 
 // TESTS: 
-/**
- * TEST001
- * 
- * Checks the ability to call extension 'Table'
- * Checks set_Thead works with variable args
- * Checks get_Thead()
-*/
- /* TOGGLE
+# /*TOGGLE
+ # TEST001  
+ #
+ # Checks the ability to call extension 'Table'
+ # Checks set_Thead works with variable args
+ # Checks get_Thead()
+ # 
+
 $petTable = new Table;
 $petTable->set_Thead("Name", "Type", "Age");
 echo $petTable->get_Thead(); 
 # */
+
 ?>
