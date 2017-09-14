@@ -1,0 +1,100 @@
+html {
+	margin: 0;
+	padding: 0;
+}
+body {
+	background-color:#695942;
+	width: 100%;
+	max-width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 12pt;
+}
+#wrapper {
+	width: 70%;
+	padding: .75%;
+	margin-left: auto;
+	margin-right: auto;
+	padding-bottom: 5%;
+	border-radius: 2%;
+	background-color: #E5F8F5;
+	border: solid 20px #302D29;
+	box-shadow: 5px 5px 2px #1E1D1D;
+}
+h2 {
+	margin:0;
+	margin-left: 5%;
+	margin-top: 5%;
+	margin-bottom: 2.5%;
+}
+p {
+	margin: 0;
+}
+
+#stringmanip {
+	width: 65%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.blurb {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+
+table {
+	width: 70%;
+	max-width: 600px;
+	min-width: 305px;
+	margin-left: auto;
+	margin-right: auto;
+	border: dashed black 1pt;
+	padding: 1%;
+	padding-left: 5%;
+
+}
+
+th {
+	font-weight: normal;
+	text-align: center;
+	font-size: 1.5em;
+
+}
+
+.transactions {
+	width: 100%;
+
+}
+
+.description {
+	width: 60%;
+}
+
+.charge {
+	font-size: .75em;
+	width: 40%;
+	text-align: right;
+}
+
+
+tr.balance td{
+	text-align: right;
+	border-bottom: .5pt dashed black;
+	
+}
+
+#available {
+	text-align: right;
+	font-size: 1.5em;
+
+}
+
+#available td {
+padding-top: 2.5%;
+}
+#available .label {
+	text-align: left;
+}
