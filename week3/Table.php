@@ -6,6 +6,7 @@
 	 * - Learn Get/Set
 	 * - DocBLock explaining script
 	 * - Reformat output HTML to use returned strings from functions for better readability
+	 * - Comment added test
 	*/
 
 	$trans = new Transaction;
@@ -14,7 +15,8 @@
 		array("Purchase: Clothing", -40),
 		array("ATM Deposit", 20),
 		array("Check Number: 12345", -17.88),
-		array("Purchase: Gas", -.55)
+		array("Purchase: Gas", -.55),
+		array("ATM Deposit", 50)
 		);
 	$trans->MakeTable($strtBal,$log);
 	
@@ -26,8 +28,8 @@
 	*/
 	class Transaction 
 	{
-		private $availBal;
-		private $log; 
+		public $availBal;
+		public $log; 
 
 		public function MakeTable($strBal,$log) {
 			$this->log = $log;
@@ -69,17 +71,20 @@ EOT;
 				margin-left: auto;
 				margin-right: auto;
 				font-size: 12pt;
+
 			}
 
 			
 			#wrapper {
-				Width: 70%;
+				width: 70%;
 				padding: .75%;
 				margin-left: auto;
 				margin-right: auto;
 				padding-bottom: 5%;
 				border-radius: 2%;
-				background-color: #FFFFFF;
+				background-color: #E5F8F5;
+				border: solid 20px #302D29;
+				box-shadow: 5px 5px 2px #1E1D1D;
 			}
 			h2 {
 				margin:0;
@@ -94,7 +99,7 @@ EOT;
 			#stringmanip {
 				width: 65%;
 				margin-left: auto;
-				Margin-right: auto;
+				margin-right: auto;
 			}
 			
 			.blurb {
@@ -179,7 +184,6 @@ EOT;
 		
 	private function LogEntry($bal,$log) {
 		echo <<<EOT
-
 <h2>Number Manipulation</h2>
 		<table>
 			<tr><th colspan="2">Joe's Account</th></tr>
