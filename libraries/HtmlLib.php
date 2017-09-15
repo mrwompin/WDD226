@@ -1,9 +1,9 @@
 <?php
 
 /**
- *  Global variable for class Tools
+ *  Class Tool holds the global attributes for it's extensions
  * 
- * The main function of Tools is to house the global
+ * The main function of Tool is to house the global
  * properties that tool extensions use. These are the 
  * properties that all html elements have available.
  * 
@@ -12,166 +12,172 @@
  * 
 */
 # /*TOGGLE
-class Tools
+class Tool
 {
 	public $globals = array(
-	"accesskey"=>NULL,
+	"id"=>NULL,
 	"className"=>NULL,
+	"style"=>NULL,
+	"accesskey"=>NULL,
 	"contextMenu"=>NULL,
 	"dataGet"=>NULL,
 	"dir"=>NULL,
 	"draggable"=>NULL,
 	"dropzone"=>NULL,
 	"hidden"=>NULL,
-	"id"=>NULL,
 	"lang"=>NULL,
 	"spellcheck"=>NULL,
-	"style"=>NULL,
 	"tabindex"=>NULL,
 	"title"=>NULL,
 	"translate"=>NULL
 	);
-	
 }
 #*/
 
 /**
- * Get and Set used to create and store values of a table in html
+ * Table is an extension of Tool
  * 
- * The table class uses a series of methods to create and populate 
- * an Html table object. This is accomplished by first setting the 
- * the thead, tbody, and tfoot properties. The Thead and Tfoot can
- * be set by using the set_Thead() and set_Foot() methods which 
- * take an arbitrary amount of args to create the header and footer
- * for the table. The tBody property can be set using the set_Tbody
- * method which can either take a full array of arrays, rows, or by
- * providing an arbitrary amount of arrays. In all cases the amount
- * items in the head, body->rows, and foot needs to be the same.
+ * Table allows the programmer to create a dynamic
+ * table by sending arrays of data to be formatted
+ * into rows. 
  * 
  * @author Matt Markwald <mmarkwald01@gmail.com>
  * @since 9/14/17
  * 
 */
- /*TOGGLE
-class Table extends Tools 
+# /*TOGGLE
+class Table extends Tool 
 {
-	private $sortable;
-	private $thead;
-	private $tbody;
-	private $tfoot;
+	static $rows = [
+		"header"=>[null],
+		"footer"=>[null]
+	];
+	public $htmlString = null;
 #*/
-
-/**
- * Tests whether function calls are working
-*/
- /*TOGGLE
-	public function test() {
-		echo "test test test test test";
-	}
-#*/
-
-/**
- * Set property methods
+#DOC: addHeader, addFooter, addRow
+/** 
+ * Following methods are used add values to the $rows property.
  * 
- * Following methods are used to set the properties of 
- * the class.
- * 
- * @since 9/14/17
-*/
- /* TOGGLE
-	public function set_Thead() {
-		$headerRow = func_get_args();
-		$this->thead = $this->addTh($headerRow);
-	}
-	public function set_Tbody() {
-		$rows = array(func_get_args());
-		// grabs as arrays as array
-		// will need a function to change each array into a list
-
-	}
-	public function set_Tfoot() {
-		$this->thead = array(func_get_args());
-	}
-#*/
-
-/**
- * Get property methods
- * 
- * Following methods are used to get the property
- * values of the class
- * 
- * @since 9/14/17
-*/
- /*TOGGLE
-	public function get_Thead() {
-		if (isset($this->thead)) {
-			return $this->thead;
-		}
-		else {
-			return "not set";
-		}
-	}
-#*/
-
-/**
- * Construct <th> HTML tags
- * 
- * This function creates a <th> tag for each item
- * in the array it is passed. 
- * 
- * @since 9/14/17
- * @param array $headerData Row data 
- * @var string $htmlString holds the html for return 
- * @return string $htmlString Returns formatted html string with data nested in <th></th> 
- * 
-*/  
- /* TOGGLE
-	private function addTh($headerData) {
-		$htmlString = "<tr>\n";
-		foreach ($headerData as $th) {
-			$htmlString .= "	<th>" . $th . "</th>\n";
-		}
-		$htmlString .= "</tr>\n";
-		return $htmlString;
-	}
-#*/	 
-
-/**
- * Construct <td> HTML tags
- * 
- * this function creates a <td> tag for each item
- * in the array it is passed
+ * Values are added by first calling the static property 
+ * including the key value and setting it equal to the
+ * input. In the cases of the addHeader and addFooter 
+ * Functions the key values "header" and footer" are 
+ * overwritten, however with the addRow function 
+ * additional rows are added to the $rows property.
+ * These additions are created by by calling the property
+ * with a key of count($rows)-2 which will return the
+ * proper place for a row to be added.
  * 
  * @since 9/14/17
  * @author Matt Markwald <mmarkwald01@gmail.com>
- * @param array $headerData Row data 
- * @var string $htmlString holds the html for return 
- * @return string $htmlString Returns formatted html string with data nested in <th></th>
- *  
-*/  
- /* TOGGLE
-	private function addTd($headerData) {
-		$htmlString = "<tr>\n";
-		foreach ($headerData as $td) {
-			$htmlString .= "	<td>" . $th . "</td>\n";
+ * 
+*/
+# /* TOGGLE
+	public function addHeader(array $header) {
+		self::$rows["header"] = $header;
+	}
+	public function addFooter(array $footer) {
+		self::$rows["footer"] = $footer;
+	}
+	public function addRow(array $row) {
+		self::$rows[count(self::$rows)-2] = $row;
+	}
+#*/
+
+#DOC: Build	
+ /**
+ * constructs a table out of $rows
+ * 
+ * build calls the functions that construct thead,
+ * tbody, and tfoot elements of a table. These
+ * strings combined and stored in variable $build
+ * before being used to set the value of property of
+ * $htmlString to value of $build.
+ * 
+ * @since 9/15/17
+ * @author Matt Markwald <mmarkwald01@gmail.com>
+ * 
+*/
+# /*TOGGLE
+	public function build(){
+		$build = null;
+		$build .= $this->getHeadString();
+		$build .= $this->getBodyString();
+		$build .= $this->getFootString();
+		$this->htmlString = "<table>\n" . $build . "</table>\n";
+	}
+#*/
+
+	public function getHeadString() {
+		$header = self::$rows["header"];
+		$return = "<tr>\n";
+		foreach($header as $th) {
+			$return .= "	<th>$th</th>\n";
 		}
-		$htmlString .= "</tr>\n";
-		return $htmlString;
-	}	
+		$return .= "<tr>\n";
+		return $return;
+	}
+
+	public function getBodyString() {
+		$return = null;
+		$numRows = count(self::$rows)-2;
+		for($i = 0; $i < $numRows; $i++) {
+			$return .= "<tr>\n";
+			foreach(self::$rows[$i] as $td) {
+				$return .= "<td>$td</td>\n";
+			}
+			$return .= "</tr>\n";
+		}
+		return $return;
+	}
+
+	public function getFootString() {
+		$footer = self::$rows["footer"];
+		$return = "<tr>\n";
+		foreach($footer as $th) {
+			$return .= "	<th>$th</th>\n";
+		}
+		$return .= "<tr>\n";
+		return $return;
+	}
+	
 }#End Class Table
 
-// TESTS: 
-# /*TOGGLE
- # TEST001  
- #
- # Checks the ability to call extension 'Table'
- # Checks set_Thead works with variable args
- # Checks get_Thead()
- # 
-
-$petTable = new Table;
-$petTable->set_Thead("Name", "Type", "Age");
-echo $petTable->get_Thead(); 
+/**
+ * Test 001
+ * 
+ * Test adding a header, row, and footer to a new
+ * instance of class table.
+ * 
+ * Test 001 is a success.
+ * 
+*/
+ /*TOGGLE
+$table = new Table;
+$table->addHeader(["Name","DOB","email"]); 
+$table->addRow(["Matt","1/27/1991","mmarkwald01@gmail.com"]);
+$table->addFooter(["Total","","test"]);
+var_dump($table::$rows);
 # */
 
+/**
+ * Test 002
+ * 
+ * Testing to see if the build function will return a fully
+ * usable html table
+ * 
+ * Success!
+ * 
+*/
+# /*TOGGLE
+	$petTable = new Table;
+	$petTable->addHeader(["Name","Type","Last Visit"]); 
+	$petTable->addRow(["Barkley","Dog","9/15/2016"]);
+	$petTable->addRow(["Jynx", "Cat", "8/10/2014"]);
+	$petTable->addRow(["Sparky", "Dog", "02/24/2013"]);
+	$petTable->addRow(["Socks", "Cat", "10/23/2011"]);
+	$petTable->addFooter(["Footer"]);
+	$petTable->build();
+	echo $petTable->htmlString;
+#*/
 ?>
