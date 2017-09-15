@@ -52,18 +52,19 @@ class Tools
  * @since 9/14/17
  * 
 */
-
+ /*TOGGLE
 class Table extends Tools 
 {
 	private $sortable;
 	private $thead;
 	private $tbody;
 	private $tfoot;
+#*/
 
 /**
  * Tests whether function calls are working
 */
-# /*TOGGLE
+ /*TOGGLE
 	public function test() {
 		echo "test test test test test";
 	}
@@ -77,7 +78,7 @@ class Table extends Tools
  * 
  * @since 9/14/17
 */
-# /* TOGGLE
+ /* TOGGLE
 	public function set_Thead() {
 		$headerRow = func_get_args();
 		$this->thead = $this->addTh($headerRow);
@@ -101,7 +102,7 @@ class Table extends Tools
  * 
  * @since 9/14/17
 */
-# /*TOGGLE
+ /*TOGGLE
 	public function get_Thead() {
 		if (isset($this->thead)) {
 			return $this->thead;
@@ -124,7 +125,7 @@ class Table extends Tools
  * @return string $htmlString Returns formatted html string with data nested in <th></th> 
  * 
 */  
-# /* TOGGLE
+ /* TOGGLE
 	private function addTh($headerData) {
 		$htmlString = "<tr>\n";
 		foreach ($headerData as $th) {
@@ -148,7 +149,7 @@ class Table extends Tools
  * @return string $htmlString Returns formatted html string with data nested in <th></th>
  *  
 */  
-# /* TOGGLE
+ /* TOGGLE
 	private function addTd($headerData) {
 		$htmlString = "<tr>\n";
 		foreach ($headerData as $td) {
