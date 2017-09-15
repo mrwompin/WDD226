@@ -9,6 +9,23 @@
  * @author Matt Markwald
 */ 
 # /*TOGGLE
+	function addRows($num) {
+		$rowStart = 0;
+		$cellID = null;
+		$rows = null;
+		for($i = 0; $i < $num; $i++) {
+			$cellID = increment($rowStart);
+			$rows .= <<<ROWS
+
+		<tr>
+			<td>$cellID[0]</td>
+			<td>$cellID[1]</td>
+			<td>$cellID[2]</td>
+			<td>$cellID[3]</td>
+		</tr>
+
+ROWS;
+		}
 		return $rows;
 	}
 #*/
