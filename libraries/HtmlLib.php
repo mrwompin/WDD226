@@ -1,5 +1,4 @@
 <?php
-# /*TOGGLE
 #DOC: TOOL CLASS
 	/**
 	 *  Class Tool holds the global attributes for it's extensions
@@ -12,7 +11,7 @@
 	 * @author Matt Markwald <mmarkwald01@gmail.com>
 	 * 
 	*/
- # /* TOGGLE
+# /* TOGGLE
 	class Tool {
 	public $globals = array(
 	"id"=>NULL,
@@ -68,7 +67,7 @@
 		 * @author Matt Markwald <mmarkwald01@gmail.com>
 		 * 
 		*/
-	 # /* TOGGLE
+	# /* TOGGLE
 			public function addHeader(array $header) {
 				self::$rows["header"] = $header;
 			}
@@ -82,28 +81,26 @@
 
 
 	#DOC: Build()	
-	  /**
-		* constructs a table out of $rows
-		* 
-		* Build() sets in motion a series of methods that 
-		* separate the $rows variable into different sections
-		* before formatting each section according to their
-		* own specifications. These sections are converted to
-		* strings and stored in $build before being used to 
-		* set $htmlString property value to the value of
-		*  $build.
-		* 
-		* @since 9/15/17
-		* @author Matt Markwald <mmarkwald01@gmail.com>
-		* 
+		/**
+		 * constructs a table out of $rows
+		 * 
+		 * Build() sets in motion a series of methods that 
+		 * separate the $rows variable into different sections
+		 * before formatting each section according to their
+		 * own specifications. These sections are converted to
+		 * strings and stored in $build before being used to 
+		 * set the $htmlString property.
+		 * 
+		 * @since 9/15/17
+		 * @author Matt Markwald <mmarkwald01@gmail.com>
 		*/
-	 #/*TOGGLE
+	# /*TOGGLE
 		public function build(){
-			$build = null;
-			$build .= $this->getHeadString();
-			$build .= $this->getBodyString();
-			$build .= $this->getFootString();
-			$this->htmlString = "<table>\n" . $build . "</table>\n";
+			$this->htmlString = "<table>\n";
+			$this->htmlString .= $this->getHeadString();
+			$this->htmlString .= $this->getBodyString();
+			$this->htmlString .= $this->getFootString();
+			$this->htmlString .= "</table>\n";
 		}
 
 
@@ -152,46 +149,51 @@
 	 * it according to specifications of the tool
 	 * that is implementing it.
 	*/
-	# /* TOGGLE
-	//Your Code Here
-		
+# /* TOGGLE
+	//Your Code Here	
 #*/
 
-/**
- * Test 001
- * 
- * Test adding a header, row, and footer to a new
- * instance of class table.
- * 
- * Test 001 is a success.
- * 
-*/
- /*TOGGLE
-$table = new Table;
-$table->addHeader(["Name","DOB","email"]); 
-$table->addRow(["Matt","1/27/1991","mmarkwald01@gmail.com"]);
-$table->addFooter(["Total","","test"]);
-var_dump($table::$rows);
-# */
+// FOLLOWING AREA IS FOR TESTS //
 
-/**
- * Test 002
- * 
- * Testing to see if the build function will return a fully
- * usable html table
- * 
- * Success!
- * 
-*/
-# /*TOGGLE
+#Test 001	
+	/**
+	 * Test 001
+	 * 
+	 * Test adding a header, row, and footer to a new
+	 * instance of class table.
+	 * 
+	 * Test 001 is a success.
+	 * 
+	*/
+ /*TOGGLE
+	$table = new Table;
+	$table->addHeader(["Name","DOB","email"]); 
+	$table->addRow(["Matt","1/27/1991","mmarkwald01@gmail.com"]);
+	$table->addFooter(["Total","","test"]);
+	var_dump($table::$rows);
+#*/
+
+#Test 002 
+	/**
+	 * Test 002
+	 * 
+	 * Testing to see if the build function will return a fully
+	 * usable html table
+	 * 
+	 * Success!
+	 * 
+	*/
+# /*TOGGLE 
 	$petTable = new Table;
 	$petTable->addHeader(["Name","Type","Last Visit"]); 
 	$petTable->addRow(["Barkley","Dog","9/15/2016"]);
 	$petTable->addRow(["Jynx", "Cat", "8/10/2014"]);
-	$petTable->addRow(["Sparky", "Dog", "02/24/2013"]);
+	$petTable->addRow(["Sparky", "Bird", "02/24/2013"]);
 	$petTable->addRow(["Socks", "Cat", "10/23/2011"]);
+	$petTable->addRow(["Sonic", "hedgehog", "04/11/2015"]);
 	$petTable->addFooter(["Footer"]);
 	$petTable->build();
 	echo $petTable->htmlString;
-#*/
+#*/ 	
+
 ?>
