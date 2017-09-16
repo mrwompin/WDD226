@@ -45,7 +45,7 @@ namespace HTML_TOOL_LIBRARY;
 # /* TOGGLE
 	class Table extends Tool {
 		static $rows = ["header"=>null];
-		public $htmlString = null;
+		
 
 	#DOC: addHeader, addFooter, addRow
 	 	/** 
@@ -70,7 +70,7 @@ namespace HTML_TOOL_LIBRARY;
 			self::$rows["header"] = $header;
 		}
 		public function addRow(array $row) {
-			self::$rows[count(self::$rows)-2] = $row;
+			self::$rows[count(self::$rows)-1] = $row;
 		}
 	#*/
 
@@ -88,7 +88,7 @@ namespace HTML_TOOL_LIBRARY;
 		 * @since 9/15/17
 		 * @author Matt Markwald <mmarkwald01@gmail.com>
 		*/
-	 /*TOGGLE
+#	 /*TOGGLE
 		public function build(){
 			$this->htmlString = "<table>\n";
 			$this->htmlString .= $this->getHeadString();
@@ -99,6 +99,7 @@ namespace HTML_TOOL_LIBRARY;
 			return $return;
 		}
 
+#  /*TOGGLE
 		private function getHeadString() {
 			$id = $this->globals["id"];
 			if (isset(self::$rows["header"])) {
@@ -111,10 +112,10 @@ namespace HTML_TOOL_LIBRARY;
 				return $return;
 			}
 		}
-
+ #*/
 		private function getBodyString() {
 			$return = null;
-			$numRows = count(self::$rows)-2;
+			$numRows = count(self::$rows)-1;
 			for($i = 0; $i < $numRows; $i++) {
 				$return .= "	<tr>\n";
 				foreach(self::$rows[$i] as $td) {
@@ -248,10 +249,9 @@ namespace HTML_TOOL_LIBRARY;
 	*/
 # /*TOGGLE
 	 $table = new \HTML_TOOL_LIBRARY\Table;
-	 $counter = 1;
+	 $x=1;
 	 for($i=0;$i<4;$i++) {
-	 	$table->addRow([$counter++,$counter++,$counter++]);
-	 	$table->addRow([$counter++,$counter++,$counter++]);
+	 	$table->addRow([$x++, $x++, $x++]);
 	 }
 	 echo $table->build();
 
