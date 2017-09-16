@@ -1,19 +1,19 @@
 <?php
-
-/**
- *  Class Tool holds the global attributes for it's extensions
- * 
- * The main function of Tool is to house the global
- * properties that tool extensions use. These are the 
- * properties that all html elements have available.
- * 
- * @since 9/14/17
- * @author Matt Markwald <mmarkwald01@gmail.com>
- * 
-*/
 # /*TOGGLE
-class Tool
-{
+#DOC: TOOL CLASS
+	/**
+	 *  Class Tool holds the global attributes for it's extensions
+	 * 
+	 * The main function of Tool is to house the global
+	 * properties that tool extensions use. These are the 
+	 * properties that all html elements have available.
+	 * 
+	 * @since 9/14/17
+	 * @author Matt Markwald <mmarkwald01@gmail.com>
+	 * 
+	*/
+ # /* TOGGLE
+	class Tool {
 	public $globals = array(
 	"id"=>NULL,
 	"className"=>NULL,
@@ -29,119 +29,133 @@ class Tool
 	"spellcheck"=>NULL,
 	"tabindex"=>NULL,
 	"title"=>NULL,
-	"translate"=>NULL
-	);
-}
+	"translate"=>NULL);
+	} 
 #*/
 
-/**
- * Table is an extension of Tool
- * 
- * Table allows the programmer to create a dynamic
- * table by sending arrays of data to be formatted
- * into rows. 
- * 
- * @author Matt Markwald <mmarkwald01@gmail.com>
- * @since 9/14/17
- * 
-*/
-# /*TOGGLE
-class Table extends Tool 
-{
+
+#DOC: Table Extension
+  /** 
+	* Table is an extension of Tool
+	*
+	* Table allows the programmer to create a dynamic
+ 	* table by sending arrays of data to be formatted
+ 	* into rows.
+   */
+ #/* TOGGLE
+	class Table extends Tool {
 	static $rows = [
 		"header"=>[null],
 		"footer"=>[null]
 	];
 	public $htmlString = null;
-#*/
-#DOC: addHeader, addFooter, addRow
-/** 
- * Following methods are used add values to the $rows property.
- * 
- * Values are added by first calling the static property 
- * including the key value and setting it equal to the
- * input. In the cases of the addHeader and addFooter 
- * Functions the key values "header" and footer" are 
- * overwritten, however with the addRow function 
- * additional rows are added to the $rows property.
- * These additions are created by by calling the property
- * with a key of count($rows)-2 which will return the
- * proper place for a row to be added.
- * 
- * @since 9/14/17
- * @author Matt Markwald <mmarkwald01@gmail.com>
- * 
-*/
-# /* TOGGLE
-	public function addHeader(array $header) {
-		self::$rows["header"] = $header;
-	}
-	public function addFooter(array $footer) {
-		self::$rows["footer"] = $footer;
-	}
-	public function addRow(array $row) {
-		self::$rows[count(self::$rows)-2] = $row;
-	}
-#*/
 
-#DOC: Build	
- /**
- * constructs a table out of $rows
- * 
- * build calls the functions that construct thead,
- * tbody, and tfoot elements of a table. These
- * strings combined and stored in variable $build
- * before being used to set the value of property of
- * $htmlString to value of $build.
- * 
- * @since 9/15/17
- * @author Matt Markwald <mmarkwald01@gmail.com>
- * 
-*/
-# /*TOGGLE
-	public function build(){
-		$build = null;
-		$build .= $this->getHeadString();
-		$build .= $this->getBodyString();
-		$build .= $this->getFootString();
-		$this->htmlString = "<table>\n" . $build . "</table>\n";
-	}
-#*/
-
-	public function getHeadString() {
-		$header = self::$rows["header"];
-		$return = "<tr>\n";
-		foreach($header as $th) {
-			$return .= "	<th>$th</th>\n";
-		}
-		$return .= "<tr>\n";
-		return $return;
-	}
-
-	public function getBodyString() {
-		$return = null;
-		$numRows = count(self::$rows)-2;
-		for($i = 0; $i < $numRows; $i++) {
-			$return .= "<tr>\n";
-			foreach(self::$rows[$i] as $td) {
-				$return .= "<td>$td</td>\n";
+	#DOC: addHeader, addFooter, addRow	
+	 	/** 
+		 * Following methods are used add values to the $rows property.
+		 * 
+		 * Values are added by first calling the static property 
+		 * including the key value and setting it equal to the
+		 * input. In the cases of the addHeader and addFooter 
+		 * Functions the key values "header" and footer" are 
+		 * overwritten, however with the addRow function 
+		 * additional rows are added to the $rows property.
+		 * These additions are created by by calling the property
+		 * with a key of count($rows)-2 which will return the
+		 * proper place for a row to be added.
+		 * 
+		 * @since 9/14/17
+		 * @author Matt Markwald <mmarkwald01@gmail.com>
+		 * 
+		*/
+	 # /* TOGGLE
+			public function addHeader(array $header) {
+				self::$rows["header"] = $header;
 			}
-			$return .= "</tr>\n";
-		}
-		return $return;
-	}
+			public function addFooter(array $footer) {
+				self::$rows["footer"] = $footer;
+			}
+			public function addRow(array $row) {
+				self::$rows[count(self::$rows)-2] = $row;
+			}
+	#*/
 
-	public function getFootString() {
-		$footer = self::$rows["footer"];
-		$return = "<tr>\n";
-		foreach($footer as $th) {
-			$return .= "	<th>$th</th>\n";
+
+	#DOC: Build()	
+	  /**
+		* constructs a table out of $rows
+		* 
+		* Build() sets in motion a series of methods that 
+		* separate the $rows variable into different sections
+		* before formatting each section according to their
+		* own specifications. These sections are converted to
+		* strings and stored in $build before being used to 
+		* set $htmlString property value to the value of
+		*  $build.
+		* 
+		* @since 9/15/17
+		* @author Matt Markwald <mmarkwald01@gmail.com>
+		* 
+		*/
+	 #/*TOGGLE
+		public function build(){
+			$build = null;
+			$build .= $this->getHeadString();
+			$build .= $this->getBodyString();
+			$build .= $this->getFootString();
+			$this->htmlString = "<table>\n" . $build . "</table>\n";
 		}
-		$return .= "<tr>\n";
-		return $return;
-	}
+
+
+		private function getHeadString() {
+			$header = self::$rows["header"];
+			$return = "<tr>\n";
+			foreach($header as $th) {
+				$return .= "	<th>$th</th>\n";
+			}
+			$return .= "<tr>\n";
+			return $return;
+		}
+
+		private function getBodyString() {
+			$return = null;
+			$numRows = count(self::$rows)-2;
+			for($i = 0; $i < $numRows; $i++) {
+				$return .= "<tr>\n";
+				foreach(self::$rows[$i] as $td) {
+					$return .= "<td>$td</td>\n";
+				}
+				$return .= "</tr>\n";
+			}
+			return $return;
+		}
+
+		private function getFootString() {
+			$footer = self::$rows["footer"];
+			$return = "<tr>\n";
+			foreach($footer as $th) {
+				$return .= "	<th>$th</th>\n";
+			}
+			$return .= "<tr>\n";
+			return $return;
+		}
+	#*/
 	
-}#End Class Table
+} //Your Code Here	
+#*/#End Class Table
+
+#DOC: Row Interface
+	/** 
+	 * The Row Interface implements method addRow
+	 *
+	 * Method addRow takes in user input and formats
+	 * it according to specifications of the tool
+	 * that is implementing it.
+	*/
+	# /* TOGGLE
+	//Your Code Here
+		
+#*/
 
 /**
  * Test 001
