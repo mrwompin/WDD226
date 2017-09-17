@@ -1,62 +1,23 @@
 <?php
-namespace HTML_TOOL_LIBRARY;
-#DOC: TOOL CLASS
-	/**
-	 *  Class Tool holds the global attributes for it's extensions
-	 * 
-	 * The main function of Tool is to house the global
-	 * properties that tool extensions use. These are the 
-	 * properties that all html elements have available.
-	 * 
-	 * @since 9/14/17
-	 * @author Matt Markwald <mmarkwald01@gmail.com>
-	 * 
-	*/
-# /* TOGGLE
-	class Tool {
-	public $globals = array(
-	"id"=>NULL,
-	"class"=>NULL,
-	"style"=>NULL,
-	"accesskey"=>NULL,
-	"contextMenu"=>NULL,
-	"dataGet"=>NULL,
-	"dir"=>NULL,
-	"draggable"=>NULL,
-	"dropzone"=>NULL,
-	"hidden"=>NULL,
-	"lang"=>NULL,
-	"spellcheck"=>NULL,
-	"tabindex"=>NULL,
-	"title"=>NULL,
-	"translate"=>NULL);
-	} 
-#*/
 
-
-#DOC: Table Extension
+#DOC: Class Table 
 	/** 
-	 * Table is an extension of Tool
+	 * Table creates a table object
 	 *
 	 * Table allows the programmer to create a dynamic
 	 * table by sending arrays of data to be formatted
 	 * into rows.
 	*/
 # /* TOGGLE
-	class Table extends Tool {
-		static $rows = ["header"=>null];
-		
+	class Table {
+		static $rows;
+		private $numRows;
 
-	#DOC: addHeader, addFooter, addRow
+	#DOC: addHeader, addRow
 	 	/** 
 		 * Following methods are used add values to the $rows property.
 		 * 
-		 * Values are added by first calling the static property 
-		 * including the key value and setting it equal to the
-		 * input. In the cases of the addHeader and addFooter 
-		 * Functions the key values "header" and footer" are 
-		 * overwritten, however with the addRow function 
-		 * additional rows are added to the $rows property.
+		 * The addRow function adds rows to the $rows property.
 		 * These additions are created by by calling the property
 		 * with a key of count($rows)-2 which will return the
 		 * proper place for a row to be added.
@@ -66,11 +27,16 @@ namespace HTML_TOOL_LIBRARY;
 		 * 
 		*/
 	# /* TOGGLE
-		public function addHeader(array $header) {
-			self::$rows["header"] = $header;
-		}
-		public function addRow(array $row) {
-			self::$rows[count(self::$rows)-1] = $row;
+		public function addRow(array $row, $keyword = null) {
+			#var_dump($row);
+			if(isset($keyword)){
+				self::$rows[$keyword] = $row;
+			}
+			else{
+			self::$rows[] = $row;
+			$this->numRows++;
+			}
+			
 		}
 	#*/
 
@@ -95,13 +61,13 @@ namespace HTML_TOOL_LIBRARY;
 			$this->htmlString .= $this->getBodyString();
 			$this->htmlString .= "</table>\n";
 			$return = $this->htmlString;
-			$this->clearProperties();
+			self::$rows = [];
+			$this->numRows = null;
 			return $return;
 		}
 
 #  /*TOGGLE
 		private function getHeadString() {
-			$id = $this->globals["id"];
 			if (isset(self::$rows["header"])) {
 				$header = self::$rows["header"];
 				$return = "	<tr>\n";
@@ -115,8 +81,7 @@ namespace HTML_TOOL_LIBRARY;
  #*/
 		private function getBodyString() {
 			$return = null;
-			$numRows = count(self::$rows)-1;
-			for($i = 0; $i < $numRows; $i++) {
+			for($i = 0; $i < $this->numRows; $i++) {
 				$return .= "	<tr>\n";
 				foreach(self::$rows[$i] as $td) {
 					$return .= "		<td>$td</td>\n";
@@ -125,133 +90,32 @@ namespace HTML_TOOL_LIBRARY;
 			}
 			return $return;
 		}
-
-		private function clearProperties(){
-			$this->globals = array(
-			"id"=>NULL,
-			"className"=>NULL,
-			"style"=>NULL,
-			"accesskey"=>NULL,
-			"contextMenu"=>NULL,
-			"dataGet"=>NULL,
-			"dir"=>NULL,
-			"draggable"=>NULL,
-			"dropzone"=>NULL,
-			"hidden"=>NULL,
-			"lang"=>NULL,
-			"spellcheck"=>NULL,
-			"tabindex"=>NULL,
-			"title"=>NULL,
-			"translate"=>NULL);
-			self::$rows = ["header"=>null];
-}
 	#*/	
 } 
 #*/
 
-#DOC: Build()
+#WEEK 4 ASSIGNEMNT
 	/** 
-	 * Build() creates an html table string
+	 * creates a dynamic table with numbered input as data
 	 *
-	 * Build uses a for loop within a for loop to write
-	 * the html frame as well as to populate the table
-	 * with the supplied user data. The first loop writes
-	 * a <tr> tag for each row in the array of rows. The
-	 * second loop checks for a header row by boolean checking 
-	 * for a non-numeric key value.
-	 * 
-	 * Since header is a named key value and by 
-	 * default rows are added numerically, the if test can
-	 * check for key value "header" by checking for a 
-	 * non-numeric number. This may also come in hand later
-	 * when I try to implement a way to write inline class/id
-	 * 
-	 * Using result of the if test the html string is updated. 
-	 * If the result of the if test is non-numeric (the key value
-	 * of the row) then the test will result in true (the key value
-	 * is not a numeric number) and therefore the html string is
-	 * appended with <th>$cell_Value</th> for the header row. If the 
-	 * result is false and the key value is numeric the table is appended
-	 * with 
-	*/
-#/*TOGGLE
-	 //Your Code Here	
-#*/
-
-#DOC: Row Interface
-	/** 
-	 * The Row Interface implements method addRow
-	 *
-	 * Method addRow takes in user input and formats
-	 * it according to specifications of the tool
-	 * that is implementing it.
-	 * 
-	 * @since ?
-	*/
-# /* TOGGLE
-	//Your Code Here	
-#*/
-
-// FOLLOWING AREA IS FOR TESTS //
-
-#Test 001	
-	/**
-	 * Test 001
-	 * 
-	 * Test adding a header, row, and footer to a new
-	 * instance of class table.
-	 * 
-	 * Test 001 is a success.
-	 * 
-	*/
- /*TOGGLE
-	$table = new Table;
-	$table->addHeader(["Name","DOB","email"]); 
-	$table->addRow(["Matt","1/27/1991","mmarkwald01@gmail.com"]);
-	$table->addFooter(["Total","","test"]);
-	var_dump($table::$rows);
-#*/
-
-
-#Test 002 
-	/**
-	 * Test 002
-	 * 
-	 * Testing to see if the build function will return a fully
-	 * usable html table. Table is dynamic, meaning more rows can
-	 * be added with additional addRow commands.
-	 * 
-	 * Success!
-	 * 
-	*/
- /*TOGGLE
-	
-	$petTable = new \HTML_TOOL_LIBRARY\Table;
-	$petTable->addHeader(["Name","Type","Last Visit"]); 
-	$petTable->addRow(["Barkley","Dog","9/15/2016"]);
-	$petTable->addRow(["Jynx", "Cat", "8/10/2014"]);
-	$petTable->addRow(["Sparky", "Bird", "02/24/2013"]);
-	$petTable->addRow(["Socks", "Cat", "10/23/2011"]);
-	$petTable->addRow(["Sonic", "hedgehog", "04/11/2015"]);
-	echo $petTable->build();
-
-		
-#*/ 
-
-#Test 003
-	/** 
-	 * Week 4 assignment
-	 *
-	 * This test is to determine if my library can currently
-	 * pass the assignment from week 4, dynamically generating
-	 * a table with values 1-*
+	 * creates a new instance of class table, sets an initial 
+	 * variable $cellNum to the number the function should start
+	 * the cell count on. the table loops through creating 4 rows
+	 * of output and using post incremented $cellNum variables to 
+	 * set the number for each cell. these rows are added using the 
+	 * table classes addrow() function which adds arrays of input to
+	 * the table $rows property which itself is an array. Then the 
+	 * build() function is called which creates opeing and closing tags
+	 * for the table, a header, and any rows in the $rows property.
 	 * 
 	*/
 # /*TOGGLE
-	 $table = new \HTML_TOOL_LIBRARY\Table;
-	 $x=1;
+	 
+
+	 $table = new Table;
+	 $cellNum = 1;
 	 for($i=0;$i<4;$i++) {
-	 	$table->addRow([$x++, $x++, $x++]);
+	 	$table->addRow([$cellNum++, $cellNum++, $cellNum++]);
 	 }
 	 echo $table->build();
 
