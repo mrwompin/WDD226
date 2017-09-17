@@ -85,6 +85,7 @@ EOT;
 				background-color: #E5F8F5;
 				border: solid 20px #302D29;
 				box-shadow: 5px 5px 2px #1E1D1D;
+				min-width: 400px;
 			}
 			h2 {
 				margin:0;
@@ -116,7 +117,7 @@ EOT;
 				min-width: 305px;
 				margin-left: auto;
 				margin-right: auto;
-				border: dashed black 1pt;
+				/*border: dashed black 1pt;*/
 				padding: 1%;
 				padding-left: 5%;
 
