@@ -1,4 +1,40 @@
 <?php
+#DOC: DYNAMIC TABLE EXAMPLE
+	/** 
+	 * creates a table with dynamically generated numbered input as data
+	 *
+	 * creates a new instance of class table, sets an initial 
+	 * variable $cellNum to the number the function should start
+	 * the cell count on. the table loops through creating 4 rows
+	 * of output and using post incremented $cellNum variables to 
+	 * set the number for each cell. these rows are added using the 
+	 * table classes addrow() function which adds arrays of input to
+	 * the table $rows property which itself is an array. Then the 
+	 * build() function is called which creates opeing and closing tags
+	 * for the table and any rows in the $rows property.
+	 * 
+	*/
+# /*TOGGLE
+	$table = new Table; //new instance of class table
+	$cellNum = 1; //used for naming cells
+
+	echo "<!DOCTYPE html>\n";
+	echo "<html>\n";
+	echo "	<head>\n";
+	echo "		<title></title>\n";
+	echo "<style>";
+	
+	echo "</style>";
+	echo "	</head>\n";
+	echo "	<body>\n";
+	for($i=0;$i<4;$i++) {
+		$table->addRow([$cellNum++, $cellNum++, $cellNum++]); //each row uses the cellNum and increments it for the next one
+	}
+ #	echo $table->addRow(["Dynamic Table"],"header"); //adds a header, still need to figure out how to pass a colspan argument efficiently
+	echo $table->build(); //build function uses the rows it was given to create the table
+	echo "	</body>\n";
+	echo "</html>\n";
+#*/
 
 #DOC: Class Table 
 	/** 
@@ -11,7 +47,7 @@
 # /* TOGGLE
 	class Table {
 		static $rows;
-		private $numRows;
+		private $numRows; //note in this context numRows refers only to 'numbered' rows, not the total number of rows
 
 	#DOC: addHeader, addRow
 	 	/** 
@@ -36,7 +72,6 @@
 			self::$rows[] = $row;
 			$this->numRows++;
 			}
-			
 		}
 	#*/
 
@@ -57,8 +92,8 @@
 #	 /*TOGGLE
 		public function build(){
 			$this->htmlString = "<table>\n";
-			$this->htmlString .= $this->getHeadString();
-			$this->htmlString .= $this->getBodyString();
+			$this->htmlString .= $this->constructHeader();
+			$this->htmlString .= $this->constructRow();
 			$this->htmlString .= "</table>\n";
 			$return = $this->htmlString;
 			self::$rows = [];
@@ -67,7 +102,7 @@
 		}
 
 #  /*TOGGLE
-		private function getHeadString() {
+		private function constructHeader() {
 			if (isset(self::$rows["header"])) {
 				$header = self::$rows["header"];
 				$return = "	<tr>\n";
@@ -79,46 +114,35 @@
 			}
 		}
  #*/
-		private function getBodyString() {
-			$return = null;
-			for($i = 0; $i < $this->numRows; $i++) {
-				$return .= "	<tr>\n";
-				foreach(self::$rows[$i] as $td) {
-					$return .= "		<td>$td</td>\n";
-				}
-				$return .= "	</tr>\n";
-			}
-			return $return;
-		}
-	#*/	
+		#DOC: getBodySting()
+			/** 
+			 * Creates rows for the body of the table
+			 *
+			 * Function uses a for loop to create an opeing and closing tag for each
+			 * numbered key in $rows. Within the for loop is a foreach loop that
+			 * iterates and adds to the $return variable the values of the $row[]
+			 * these values are each enclosed by <td> tags. By keeping track of 
+			 * the number of rows without keywords, the function can create the body
+			 * separate from the header using <td> tags.
+			 * 
+			 * @var $return return holds the html code of rows created by constructRow
+			 * @return $return returns an html string of rows 
+			*/
+		#/*TOGGLE
+			private function constructRow() {
+					$return = null;
+					for($i = 0; $i < $this->numRows; $i++) { 
+						$return .= "	<tr>\n";
+						foreach(self::$rows[$i] as $td) { //creates the <td></td> tags for the row values
+							$return .= "		<td>$td</td>\n";
+						}
+						$return .= "	</tr>\n";
+					}
+					return $return;
+				} //Your Code Here	
+		#*/
+
 } 
 #*/
 
-#WEEK 4 ASSIGNEMNT
-	/** 
-	 * creates a dynamic table with numbered input as data
-	 *
-	 * creates a new instance of class table, sets an initial 
-	 * variable $cellNum to the number the function should start
-	 * the cell count on. the table loops through creating 4 rows
-	 * of output and using post incremented $cellNum variables to 
-	 * set the number for each cell. these rows are added using the 
-	 * table classes addrow() function which adds arrays of input to
-	 * the table $rows property which itself is an array. Then the 
-	 * build() function is called which creates opeing and closing tags
-	 * for the table, a header, and any rows in the $rows property.
-	 * 
-	*/
-# /*TOGGLE
-	 
-
-	 $table = new Table;
-	 $cellNum = 1;
-	 for($i=0;$i<4;$i++) {
-	 	$table->addRow([$cellNum++, $cellNum++, $cellNum++]);
-	 }
-	 echo $table->build();
-
-
-#*/
 ?>
